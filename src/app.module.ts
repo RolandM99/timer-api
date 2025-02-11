@@ -24,7 +24,7 @@ import { Timer } from './timer/entities/timer.entity';
             database: 'timer_db',
           }),
       entities: [Timer],
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
     }),
     TimerModule,
   ],
