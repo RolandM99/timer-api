@@ -15,9 +15,7 @@ export class TimerService {
   ) {}
 
   private async notifyMake(event: string, data: any) {
-    const webhookUrl = this.configService.get(
-      'https://hook.us2.make.com/ifsydlv9i8ol51gwueu146k8sirtir16',
-    );
+    const webhookUrl = this.configService.get('MAKE_WEBHOOK_URL');
     try {
       await this.httpService.post(webhookUrl, {
         event,
