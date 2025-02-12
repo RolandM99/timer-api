@@ -14,12 +14,12 @@ export class TimerService {
     private configService: ConfigService,
   ) {}
 
-  private async notifyMake(event: string, data: any) {
+  private async notifyMake(event: string, timerData: any) {
     const webhookUrl = this.configService.get('MAKE_WEBHOOK_URL');
     try {
       await this.httpService.post(webhookUrl, {
         event,
-        data,
+        ...timerData,
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
