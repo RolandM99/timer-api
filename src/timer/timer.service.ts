@@ -16,14 +16,18 @@ export class TimerService {
 
   private async notifyMake(event: string, timerData: any) {
     const webhookUrl = this.configService.get('MAKE_WEBHOOK_URL');
-    try {
-      await this.httpService.post(webhookUrl, {
-        event,
-        ...timerData,
-        timestamp: new Date().toISOString(),
-      });
-    } catch (error) {
-      console.error('Failed to notify Make platform:', error);
+    const maxRetries = 3;
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        await this.httpService.post(webhookUrl, {
+          event,
+          ...timerData,
+          timestamp: new Date().toISOString(),
+        });
+        console.log('Notification sent to Make platform', webhookUrl);
+      } catch (error) {
+        console.error('Failed to notify Make platform:', error);
+      }
     }
   }
 

@@ -1,10 +1,15 @@
-import { Controller, Post, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Param, ParseIntPipe, Get } from '@nestjs/common';
 import { TimerService } from './timer.service';
 import { Timer } from './entities/timer.entity';
 
 @Controller('api/timer')
 export class TimerController {
   constructor(private readonly timerService: TimerService) {}
+
+  @Get('/health')
+  getHealth() {
+    return { status: 'ok' };
+  }
 
   @Post('start')
   startTimer(): Promise<Timer> {
